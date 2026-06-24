@@ -3,8 +3,6 @@
 ## What We Are Building
 MedVerify is a medical document processing web app that uses a three-agent AI pipeline to automatically extract and verify structured data from medical documents (prior auth forms, fax referrals, clinical notes). The goal is to eliminate human QC review by using three AI agents that cross-examine each other.
 
-## Why We Are Building This
-This is a demo project targeting CuraFi, a digital health startup in SF. CuraFi processes medical documents at scale and currently has a human in the loop for quality control. MedVerify demonstrates how to automate that QC step using a multi-agent LLM pipeline.
 
 ## The Three Agent Pipeline
 This is the core of the app:
