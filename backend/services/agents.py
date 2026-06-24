@@ -1,5 +1,6 @@
 import json
 import time
+from concurrent.futures import ThreadPoolExecutor
 
 from openai import OpenAI
 
@@ -180,8 +181,14 @@ def _determine_document_status(extractions):
 def run_pipeline(raw_text):
     start_time = time.time()
 
-    extractor_output, extractor_tokens = run_extractor(raw_text)
-    critic_output, critic_tokens = run_critic(raw_text)
+    # Extractor and critic are independent of each other — the critic must
+    # never see the extractor's output anyway — so run them concurrently.
+    with ThreadPoolExecutor(max_workers=2) as executor:
+        extractor_future = executor.submit(run_extractor, raw_text)
+        critic_future = executor.submit(run_critic, raw_text)
+        extractor_output, extractor_tokens = extractor_future.result()
+        critic_output, critic_tokens = critic_future.result()
+
     resolver_output, resolver_tokens = run_resolver(raw_text, extractor_output, critic_output)
 
     extractions = _build_extractions(extractor_output, resolver_output)
