@@ -2,11 +2,48 @@
 
 Reducing human QC review in medical document processing using a three-agent LLM pipeline.
 
+Update medverify/README.md
+
+Replace the current "The Problem" section with this expanded version 
+that covers the full narrative:
+
 ## The Problem
 
-Medical document processing at scale requires extracting structured data from unstructured documents — prior auth forms, EOBs, clinical notes, referral faxes. A single LLM call makes confident mistakes: misread dosages, hallucinated NPIs, silently dropped fields. The conventional fix is a human QC reviewer checking every extraction, but that doesn't scale with document volume.
+Medical document processing pipelines typically use a single LLM call 
+to extract structured data from unstructured documents. This creates 
+two compounding problems:
 
-MedVerify reduces that human-in-the-loop QC burden — auto-approving high-confidence documents entirely, and surfacing only the specific flagged fields for documents that need a human — instead of reviewing the whole document.
+**LLMs make confident mistakes.** A single extraction call returns 
+values with no signal about which outputs to trust. A misread NPI, 
+a wrong dosage, a truncated member ID — all come back formatted 
+correctly with nothing to distinguish them from accurate extractions.
+
+**Without a quality signal, every document needs a human.** Companies 
+compensate by putting a human reviewer on every extraction. The human 
+is the only quality control in the system. This doesn't scale with 
+document volume.
+
+## How MedVerify Solves It
+
+Three agents cross-examine each document independently:
+
+- The **Extractor** pulls out every field it finds — no hardcoded schema, 
+  works across prior auths, EOBs, clinical notes, and referral faxes.
+- The **Critic** reads the same document without ever seeing the 
+  extractor's output. This enforces zero anchoring bias — it forms 
+  its own independent opinion of what's ambiguous, misread, or missing.
+- The **Resolver** receives all three inputs and assigns every field 
+  a verdict: AUTO, REVIEW, or REJECT — with a confidence score and 
+  a one sentence reason.
+
+The system generates its own quality signal per field. Humans only 
+review what the pipeline is genuinely uncertain about — not every document.
+
+**The goal is to push the auto-approval rate toward 100% gradually.** 
+As flagged fields get corrected, patterns emerge — which document types 
+cause problems, which fields are consistently uncertain. That data 
+drives prompt improvements that reduce flags over time, shrinking 
+the human workload toward zero.
 
 ## How It Works
 
