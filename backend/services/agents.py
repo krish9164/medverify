@@ -94,6 +94,7 @@ def _call_json_agent(system_prompt, user_content):
             {"role": "user", "content": user_content},
         ],
         response_format={"type": "json_object"},
+        temperature=0,
     )
 
     tokens = response.usage.total_tokens if response.usage else 0

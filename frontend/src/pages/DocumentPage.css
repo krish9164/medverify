@@ -1,0 +1,255 @@
+.document-page {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.document-loading,
+.document-error {
+  font-size: 0.95rem;
+  color: #5a6b80;
+  margin-bottom: 16px;
+}
+
+.document-error {
+  color: #c0392b;
+}
+
+.back-link {
+  display: inline-block;
+  margin-bottom: 16px;
+  padding: 0;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #5b7fff;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.back-link:hover {
+  text-decoration: underline;
+}
+
+.document-header-card {
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(26, 35, 50, 0.06);
+  padding: 24px 28px;
+  margin-bottom: 24px;
+}
+
+.header-top {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.document-filename {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #1a2332;
+  word-break: break-all;
+}
+
+.processed-date {
+  margin-top: 8px;
+  font-size: 0.875rem;
+  color: #8593a6;
+}
+
+.status-badge {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.badge-green {
+  background-color: #e6f9ef;
+  color: #1e9e58;
+}
+
+.badge-yellow {
+  background-color: #fef3e2;
+  color: #c4791a;
+}
+
+.badge-red {
+  background-color: #fdecea;
+  color: #c0392b;
+}
+
+.badge-gray {
+  background-color: #eceff3;
+  color: #5a6b80;
+}
+
+.extractions-section {
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(26, 35, 50, 0.06);
+  overflow: hidden;
+}
+
+.extractions-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.extractions-table th {
+  text-align: left;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #8593a6;
+  padding: 16px 20px;
+  border-bottom: 1px solid #e7ecf2;
+}
+
+.extractions-table td {
+  padding: 14px 20px;
+  border-bottom: 1px solid #f0f4f8;
+  font-size: 0.9rem;
+  color: #1a2332;
+  vertical-align: top;
+}
+
+.extractions-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.field-name-cell {
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.reason-cell {
+  color: #5a6b80;
+  max-width: 280px;
+}
+
+.verdict-badge {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.verdict-auto {
+  background-color: #e6f9ef;
+  color: #1e9e58;
+}
+
+.verdict-review {
+  background-color: #fef3e2;
+  color: #c4791a;
+}
+
+.verdict-reject {
+  background-color: #fdecea;
+  color: #c0392b;
+}
+
+.edit-button {
+  padding: 5px 14px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #1a2332;
+  background-color: #ffffff;
+  border: 1px solid #d7dee7;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.edit-button:hover {
+  background-color: #f0f4f8;
+  border-color: #5b7fff;
+}
+
+.edit-row td {
+  background-color: #f8fafc;
+}
+
+.edit-form {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.edit-input {
+  flex: 1;
+  padding: 8px 12px;
+  font-size: 0.9rem;
+  border: 1px solid #c3cfdb;
+  border-radius: 6px;
+  outline: none;
+}
+
+.edit-input:focus {
+  border-color: #5b7fff;
+}
+
+.save-button {
+  padding: 8px 16px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #ffffff;
+  background-color: #1a2332;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.save-button:hover:not(:disabled) {
+  background-color: #2a3a52;
+}
+
+.save-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.cancel-button {
+  padding: 8px 16px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #5a6b80;
+  background-color: #ffffff;
+  border: 1px solid #d7dee7;
+  border-radius: 6px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.cancel-button:hover:not(:disabled) {
+  background-color: #f0f4f8;
+}
+
+.cancel-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.save-error {
+  margin-top: 10px;
+  font-size: 0.85rem;
+  color: #c0392b;
+}
+
+.empty-state {
+  padding: 64px 24px;
+  text-align: center;
+}
+
+.empty-state-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #1a2332;
+}
