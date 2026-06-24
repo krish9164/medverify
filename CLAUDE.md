@@ -3,7 +3,6 @@
 ## What We Are Building
 MedVerify is a medical document processing web app that uses a three-agent AI pipeline to automatically extract and verify structured data from medical documents (prior auth forms, fax referrals, clinical notes). The goal is to eliminate human QC review by using three AI agents that cross-examine each other.
 
-
 ## The Three Agent Pipeline
 This is the core of the app:
 1. EXTRACTOR (Agent 1) — reads the raw document text and extracts all fields into structured JSON. Fields include: patient_name, date_of_birth, drug_name, drug_brand, dosage, frequency, diagnosis_code, diagnosis_description, prescriber_name, prescriber_npi, payer_name, member_id, request_date
@@ -72,7 +71,7 @@ medverify/
 
 │   │   │   ├── UploadPage.js / .css       drop zone + upload, three-step processing animation
 
-│   │   │   ├── DashboardPage.js / .css    stats bar + documents table
+│   │   │   ├── DashboardPage.js / .css    stats bar (cards double as click-to-filter toggles) + documents table
 
 │   │   │   └── DocumentPage.js / .css     per-document extraction results + inline correction UI
 
@@ -126,6 +125,14 @@ Config is loaded via python-dotenv in backend/config.py and accessed via Config 
    It extracts whatever fields exist in the document. This makes the 
    system work across all medical document types (prior auth, EOB, 
    clinical notes, referral faxes etc.)
+8. All three agent calls use `temperature=0` (set in `_call_json_agent` in
+   `services/agents.py`) so extraction, critique, and resolution are
+   deterministic — the same document produces the same verdicts every run.
+9. Dashboard stat cards (Auto Approved / Needs Review / Rejected / Total)
+   double as filters for the documents table — clicking one toggles the
+   table to show only that status; clicking again (or clicking Total)
+   clears the filter. Filtering is client-side against the already-fetched
+   document list, no extra API call.
 
 ## Current Build Status
 - [x] MySQL database and all 4 tables created
