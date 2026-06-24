@@ -2,11 +2,6 @@
 
 Reducing human QC review in medical document processing using a three-agent LLM pipeline.
 
-Update medverify/README.md
-
-Replace the current "The Problem" section with this expanded version 
-that covers the full narrative:
-
 ## The Problem
 
 Medical document processing pipelines typically use a single LLM call 
