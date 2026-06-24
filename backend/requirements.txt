@@ -1,0 +1,8 @@
+flask
+flask-cors
+pymysql
+python-dotenv
+openai
+pypdf2
+werkzeug
+gunicorn

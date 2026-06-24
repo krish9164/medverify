@@ -1,0 +1,19 @@
+# Python
+backend/venv/
+backend/__pycache__/
+backend/uploads/
+backend/*.pyc
+
+# Environment secrets — NEVER commit this
+backend/.env
+
+# React
+frontend/node_modules/
+frontend/build/
+
+# AWS
+.elasticbeanstalk/
+
+# OS
+.DS_Store
+Thumbs.db
