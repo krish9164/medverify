@@ -15,11 +15,17 @@ This is the core of the app:
 A document is auto-approved only when ALL fields are AUTO. Otherwise it goes to human review queue but only flagged fields are shown — not the whole document.
 
 ## Tech Stack
-- Backend: Python 3.13, Flask, pymysql, python-dotenv, openai (GPT-4o), pypdf2, werkzeug
-- Frontend: React 18 with hooks, Tailwind CSS, axios
+- Backend: Python 3.13, Flask, pymysql, python-dotenv, openai (GPT-4o), pypdf2, werkzeug, gunicorn (production WSGI server)
+- Frontend: React 19 with hooks, react-router-dom v7, axios, plain CSS (no Tailwind, no CSS framework — each page has its own `.css` file)
 - Database: MySQL 8.0 (local), RDS on AWS (production)
-- Deployment: Flask on AWS Elastic Beanstalk, React on S3 static hosting, PDFs on S3
+- Deployment: Flask on AWS Elastic Beanstalk (via `backend/Procfile`, gunicorn), React on S3 static hosting, PDFs on S3
 - AI: OpenAI GPT-4o via openai Python SDK
+
+## Live Deployment
+- Frontend (S3 static site): http://medverify-frontend.s3-website-us-east-1.amazonaws.com
+- Backend (Elastic Beanstalk): http://medverify-env.eba-kmdz7qcu.us-east-1.elasticbeanstalk.com
+- `frontend/src/api.js` hardcodes `BASE_URL` to the Elastic Beanstalk URL above. For local frontend development against a local Flask server, change it to `http://localhost:5000`.
+- Repo is on GitHub: `krish9164/medverify` (git initialized, `origin` remote set).
 
 ## Folder Structure
 medverify/
@@ -30,33 +36,57 @@ medverify/
 
 │   ├── routes/
 
-│   │   ├── init.py
+│   │   ├── __init__.py
 
-│   │   ├── documents.py
+│   │   ├── documents.py       — GET /api/documents, GET /api/document/<id>, POST /api/review/<id>, GET /api/stats
 
-│   │   └── pipeline.py
+│   │   └── pipeline.py        — POST /api/upload, POST /api/process/<id>
 
 │   ├── services/
 
-│   │   ├── init.py
+│   │   ├── __init__.py
 
-│   │   ├── db.py
+│   │   ├── db.py              — all MySQL access (pymysql, DictCursor, one connection per call)
 
-│   │   └── agents.py
+│   │   └── agents.py          — extractor / critic / resolver agent calls + run_pipeline()
 
-│   ├── uploads/
+│   ├── uploads/                (gitignored — saved PDFs land here locally)
 
-│   ├── app.py
+│   ├── app.py                  Flask app factory, blueprint registration
 
-│   ├── config.py
+│   ├── config.py               Config class, loads backend/.env via python-dotenv
 
-│   ├── .env
+│   ├── Procfile                 `web: gunicorn app:app` — used by Elastic Beanstalk
+
+│   ├── .env                     (gitignored — secrets, see Config section below)
 
 │   └── requirements.txt
 
 ├── frontend/
 
-│   └── (React app will go here)
+│   ├── src/
+
+│   │   ├── api.js              centralizes all axios calls to the backend (see Live Deployment above)
+
+│   │   ├── App.js / App.css    router setup (`/`, `/dashboard`, `/document/:id`) + navbar
+
+│   │   ├── pages/
+
+│   │   │   ├── UploadPage.js / .css       drop zone + upload, three-step processing animation
+
+│   │   │   ├── DashboardPage.js / .css    stats bar + documents table
+
+│   │   │   └── DocumentPage.js / .css     per-document extraction results + inline correction UI
+
+│   │   └── index.js / index.css / setupTests.js / App.test.js — CRA scaffolding
+
+│   └── package.json            Create React App (react-scripts 5.0.1)
+
+├── screenshots/                 clean.jpg, ambiguous.jpg, edit.jpg — referenced from README.md
+
+├── README.md                    public-facing project README (problem, architecture, screenshots, setup)
+
+├── .gitignore
 
 └── CLAUDE.md
 
