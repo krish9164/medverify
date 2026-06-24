@@ -58,6 +58,15 @@ A document is auto-approved only when **every** field verdict is `AUTO`. Otherwi
 | ![Ambiguous referral](screenshots/ambiguous.jpg) | Ambiguous referral — Medicaid ID flagged for review |
 | ![Inline correction UI](screenshots/edit.jpg) | Inline correction UI for flagged fields |
 
+## Usage
+
+1. **Upload** — drag and drop or click to select any medical PDF (prior auth form, clinical note, referral fax, EOB).
+2. **Pipeline runs** — three agents process the document automatically: extractor, critic, and resolver.
+3. **Review results** — every extracted field shows a verdict: AUTO (confident), REVIEW (uncertain), or REJECT (wrong/missing).
+4. **Auto approved** — if all fields are AUTO, the document is approved with no human needed.
+5. **Human review** — if any fields are flagged, only those specific fields are shown for correction. Click Edit, fix the value, save. Done.
+6. **Dashboard** — see all processed documents, filter by status, track your auto-approval rate over time.
+
 ## Tech Stack
 
 | Layer | Technology |
